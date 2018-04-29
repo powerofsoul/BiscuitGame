@@ -5,11 +5,15 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Biscuite.Windows;
 
 namespace Biscuite {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+        private void Application_Startup(object sender, StartupEventArgs e) {
+            new LoginWindow().Show();
+        }
     }
 }
