@@ -18,14 +18,14 @@ namespace RemoteProtocol.Entities {
             }
         }
 
-        public List<User> Users { get; set; }
+        public Dictionary<Socket, User> Users { get; set; }
 
         public Server(string address = "127.0.0.1", int port = 5432) : base(address, port) {
             Initialize();
         }
 
         private void Initialize() {
-            Users = new List<User>();
+            Users = new Dictionary<Socket, User>();
             var thread = new Thread(HandleNewConnections);
             thread.Start();
         }
@@ -40,7 +40,7 @@ namespace RemoteProtocol.Entities {
                 try {
                     var client = listener.AcceptSocket();
                     new Task(() => HandleClient(client)).Start();
-                }catch(Exception e) {
+                } catch (Exception e) {
                     Console.WriteLine($"Error:{e.Message}");
                     HandleNewConnections();
                 }
@@ -49,10 +49,23 @@ namespace RemoteProtocol.Entities {
 
         private void HandleClient(Socket client) {
             while (true) {
-                var message = new byte[BUFFER_SIZE];
-                client.Receive(message);
-                object objectMessage = DeserializeMessage(message);
-                ExecuteActions.DetermineRequest((IRequest)objectMessage, client);
+                try {
+                    var message = new byte[BUFFER_SIZE];
+                    client.Receive(message);
+                    object objectMessage = DeserializeMessage(message);
+                    ExecuteActions.DetermineRequest((IRequest)objectMessage, client);
+                } catch {
+                    var userName = Users[client].Name;
+                    Users.Remove(client);
+                    SendtoAll(new SendMessageResponse("SERVER:",$"{userName} disconnected"));
+                    break;
+                }
+            }
+        }
+
+        public void SendtoAll(IResponse response) {
+            foreach(var user in Users) {
+                SendMessage(response, user.Value.ClientStream);
             }
         }
     }

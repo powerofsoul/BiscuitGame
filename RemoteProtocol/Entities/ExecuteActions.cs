@@ -12,7 +12,7 @@ namespace RemoteProtocol.Entities {
 
         public static void HandleConnect(IRequest request, Socket client) {
             var connectRequest = (ConnectRequest)request;
-            Server.Instance.Users.Add(new User(connectRequest.Username, client));
+            Server.Instance.Users.Add(client, new User(connectRequest.Username, client));
             var response = new ConnectResponse(true, request.Seq);
 
             Server.Instance.SendMessage(response, new NetworkStream(client));
@@ -21,7 +21,7 @@ namespace RemoteProtocol.Entities {
         public static void HandleSendMessages(IRequest request, Socket client) {
             var sendMessageRequest = (SendMessageRequest)request;
             foreach (var user in Server.Instance.Users) {
-                Server.Instance.SendMessage(new SendMessageResponse(user.Name, sendMessageRequest.Message), user.ClientStream);
+                Server.Instance.SendMessage(new SendMessageResponse(user.Value.Name, sendMessageRequest.Message), user.Value.ClientStream);
             }
         }
 

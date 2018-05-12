@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RemoteProtocol.Entities;
 
-namespace RemoteProtocol.Messages {
+namespace RemoteProtocol {
     public class SendMessageRequest : Request {
         public string Message { get; }
 
