@@ -16,6 +16,7 @@ namespace RemoteProtocol.Entities {
             var response = new ConnectResponse(true, request.Seq);
 
             Server.Instance.SendMessage(response, new NetworkStream(client));
+            Server.Instance.SendUserList();
         }
 
         public static void HandleSendMessages(IRequest request, Socket client) {

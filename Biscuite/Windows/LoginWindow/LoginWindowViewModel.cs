@@ -21,7 +21,7 @@ namespace Biscuite.Windows {
         public LoginWindowViewModel(Window window) {
             LoginCommand = new DelegateCommand((o) => Login(o));
             AttachedWindow = window;
-            Client.Instance.OnResponseReceived += OnConnectResponse; //<ConnectResponse>(OnConnect);
+            Client.Instance.OnResponseReceived += OnConnectResponse;
         }
 
         private void OnConnectResponse(ResponseReceivedEventArgs args) {

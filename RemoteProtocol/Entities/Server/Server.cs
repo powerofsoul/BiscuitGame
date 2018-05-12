@@ -58,6 +58,7 @@ namespace RemoteProtocol.Entities {
                     var userName = Users[client].Name;
                     Users.Remove(client);
                     SendtoAll(new SendMessageResponse("SERVER:",$"{userName} disconnected"));
+                    SendUserList();
                     break;
                 }
             }
@@ -67,6 +68,10 @@ namespace RemoteProtocol.Entities {
             foreach(var user in Users) {
                 SendMessage(response, user.Value.ClientStream);
             }
+        }
+
+        public void SendUserList() {
+            SendtoAll(new UserListMessage(Users.Select(u => u.Value.Name)));
         }
     }
 }

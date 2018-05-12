@@ -55,6 +55,7 @@
     <Compile Include="Messages\Connect\ConnectResponse.cs" />
     <Compile Include="Messages\SendMessage\SendMessageRequest.cs" />
     <Compile Include="Messages\SendMessage\SendMessageResponse.cs" />
+    <Compile Include="Messages\UserList\UserListMessage.cs" />
     <Compile Include="MessageWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />

@@ -13,7 +13,16 @@ using RemoteProtocol.Messages;
 
 namespace Biscuite.Windows {
     class MainWindowViewModel : ViewModelBase {
-        public ObservableCollection<string> ConnectedPeople { get; set; }
+        private ObservableCollection<string> _connectedPeople;
+        public ObservableCollection<string> ConnectedPeople {
+            get {
+                return _connectedPeople ?? new ObservableCollection<string>();
+            }
+            set {
+                _connectedPeople = value;
+                OnPropertyChanged(nameof(ConnectedPeople));
+            }
+        }
 
         private string _chat;
         public string Chat {
@@ -51,6 +60,13 @@ namespace Biscuite.Windows {
 
         private void ListenMessages() {
             Client.Instance.OnResponseReceived += AddMessage;
+            Client.Instance.OnResponseReceived += RefreshUsers;
+        }
+
+        private void RefreshUsers(ResponseReceivedEventArgs args) {
+            if (args.Response.GetType() != typeof(UserListMessage)) return;
+            var response = (UserListMessage)args.Response;
+            ConnectedPeople = new ObservableCollection<string>(response.Users);
         }
 
         private void AddMessage(ResponseReceivedEventArgs args) {
