@@ -16,8 +16,12 @@
                 <RowDefinition Height="7*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <RichTextBox IsReadOnly="True" Grid.Row="0"></RichTextBox>
-            <TextBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></TextBox>
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Grid.Row="0" Text="{Binding Chat}"></TextBox>
+            <TextBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding SendMessageCommand}" Key="Return" />
+                </TextBox.InputBindings>
+            </TextBox>
         </Grid>
         <ListView Grid.Column="1" ItemsSource="{Binding ConnectedPeople}" />
     </Grid>

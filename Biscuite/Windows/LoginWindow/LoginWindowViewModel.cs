@@ -21,7 +21,23 @@ namespace Biscuite.Windows {
         public LoginWindowViewModel(Window window) {
             LoginCommand = new DelegateCommand((o) => Login(o));
             AttachedWindow = window;
-            Client.Instance.WaitForResponse<ConnectResponse>(OnConnect);
+            Client.Instance.OnResponseReceived += OnConnectResponse; //<ConnectResponse>(OnConnect);
+        }
+
+        private void OnConnectResponse(ResponseReceivedEventArgs args) {
+            if (args.Response.GetType() != typeof(ConnectResponse)) return;
+
+            var connectResponse = (ConnectResponse)args.Response;
+            if (connectResponse.Status == false) {
+                MessageBox.Show("Incorrect credentials");
+            } else {
+                Application.Current.Dispatcher.Invoke(() => {
+                    var mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    AttachedWindow.Close();
+                });
+                Client.Instance.OnResponseReceived -= OnConnectResponse;
+            }
         }
 
         private void Login(object passwrodBox) {
@@ -34,15 +50,7 @@ namespace Biscuite.Windows {
         }
 
         private void OnConnect(ConnectResponse connectResponse) {
-            if (connectResponse.Status == false) {
-                MessageBox.Show("Incorrect credentials");
-            } else {
-                Application.Current.Dispatcher.Invoke(() => {
-                    var mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    AttachedWindow.Close();
-                });
-            }
+            
         }
     }
 }

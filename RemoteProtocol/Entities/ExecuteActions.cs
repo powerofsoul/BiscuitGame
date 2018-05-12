@@ -8,18 +8,30 @@ using RemoteProtocol.Messages;
 
 namespace RemoteProtocol.Entities {
     public static class ExecuteActions {
-        private static Dictionary<Type, Func<IRequest, IResponse>> _actions = new Dictionary<Type, Func<IRequest, IResponse>>();
+        private static Dictionary<Type, Action<IRequest, Socket>> _actions = new Dictionary<Type, Action<IRequest, Socket>>();
 
-        public static IResponse HandleConnect(IRequest request) {
-            return new ConnectResponse(true, request.Seq);
+        public static void HandleConnect(IRequest request, Socket client) {
+            var connectRequest = (ConnectRequest)request;
+            Server.Instance.Users.Add(new User(connectRequest.Username, client));
+            var response = new ConnectResponse(true, request.Seq);
+
+            Server.Instance.SendMessage(response, new NetworkStream(client));
+        }
+
+        public static void HandleSendMessages(IRequest request, Socket client) {
+            var sendMessageRequest = (SendMessageRequest)request;
+            foreach (var user in Server.Instance.Users) {
+                Server.Instance.SendMessage(new SendMessageResponse(user.Name, sendMessageRequest.Message), user.ClientStream);
+            }
         }
 
         internal static void DetermineRequest(IRequest objectMessage, Socket client) {
-            Server.Instance.SendMessage(_actions[objectMessage.GetType()].Invoke(objectMessage), new NetworkStream(client));
+            _actions[objectMessage.GetType()].Invoke(objectMessage, client);
         }
 
         static ExecuteActions() {
             _actions.Add(typeof(ConnectRequest), HandleConnect);
+            _actions.Add(typeof(SendMessageRequest), HandleSendMessages);
         }
     }
 }

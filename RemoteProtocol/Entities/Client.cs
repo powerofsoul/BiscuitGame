@@ -19,30 +19,29 @@ namespace RemoteProtocol.Entities {
 
         private TcpClient _server;
 
-        private Client(string address="127.0.0.1", int port=5432) : base(address, port) {
+        public event Action<ResponseReceivedEventArgs> OnResponseReceived;
+
+        private Client(string address = "127.0.0.1", int port = 5432) : base(address, port) {
             Initialize();
         }
 
         private void Initialize() {
             _server = new TcpClient();
             _server.Connect(Address, Port);
+            Task.Run(() => WaitForResponse());
         }
 
         public void SendMessage(IRequest message) {
             base.SendMessage(message, _server.GetStream());
         }
 
-        public void WaitForResponse<T>(Action<T> action) where T : IResponse {
-            Task.Run(() => {
+        public void WaitForResponse() {
+            while (true) {
                 var message = new byte[BUFFER_SIZE];
                 _server.GetStream().Read(message, 0, BUFFER_SIZE);
                 var receivedMessage = DeserializeMessage(message);
-
-                if (receivedMessage.GetType() == typeof(T))
-                    action.Invoke((T)receivedMessage);
-                else
-                    WaitForResponse<T>(action);
-            });
-         }
+                OnResponseReceived(new ResponseReceivedEventArgs((IResponse)receivedMessage));
+            }
+        }
     }
 }

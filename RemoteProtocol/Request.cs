@@ -10,7 +10,7 @@ namespace RemoteProtocol {
     public class Request : IRequest {
         public int Seq { get; }
 
-        public Request(Type messageType, int seq = 0) {
+        public Request(int seq = 0) {
             Seq = seq;
         }
     }

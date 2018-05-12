@@ -45,13 +45,16 @@
   <ItemGroup>
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\ExecuteActions.cs" />
+    <Compile Include="Entities\ResponseReceivedEventArgs.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="Entities\Server.cs" />
     <Compile Include="Entities\RemoteTCP.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="IResponse.cs" />
-    <Compile Include="Messages\ConnectRequest.cs" />
-    <Compile Include="Messages\ConnectResponse.cs" />
+    <Compile Include="Messages\Connect\ConnectRequest.cs" />
+    <Compile Include="Messages\Connect\ConnectResponse.cs" />
+    <Compile Include="Messages\SendMessage\SendMessageRequest.cs" />
+    <Compile Include="Messages\SendMessage\SendMessageResponse.cs" />
     <Compile Include="MessageWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />

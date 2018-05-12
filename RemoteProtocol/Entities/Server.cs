@@ -18,11 +18,14 @@ namespace RemoteProtocol.Entities {
             }
         }
 
+        public List<User> Users { get; set; }
+
         public Server(string address = "127.0.0.1", int port = 5432) : base(address, port) {
             Initialize();
         }
 
         private void Initialize() {
+            Users = new List<User>();
             var thread = new Thread(HandleNewConnections);
             thread.Start();
         }

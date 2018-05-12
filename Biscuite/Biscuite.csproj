@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extra\DelegateCommand.cs" />
+    <Compile Include="Extra\ViewModelBase.cs" />
     <Compile Include="Windows\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
