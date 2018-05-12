@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Client.cs" />
-    <Compile Include="Entities\ExecuteActions.cs" />
-    <Compile Include="Entities\ResponseReceivedEventArgs.cs" />
+    <Compile Include="Entities\Client\Client.cs" />
+    <Compile Include="Entities\Server\ExecuteActions.cs" />
+    <Compile Include="Entities\Server\RemoteTCP.cs" />
+    <Compile Include="Entities\Server\ResponseReceivedEventArgs.cs" />
+    <Compile Include="Entities\Server\Server.cs" />
+    <Compile Include="Entities\Server\User.cs" />
     <Compile Include="IRequest.cs" />
-    <Compile Include="Entities\Server.cs" />
-    <Compile Include="Entities\RemoteTCP.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="IResponse.cs" />
     <Compile Include="Messages\Connect\ConnectRequest.cs" />
     <Compile Include="Messages\Connect\ConnectResponse.cs" />
