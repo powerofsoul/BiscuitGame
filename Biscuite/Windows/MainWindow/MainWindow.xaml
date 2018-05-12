@@ -23,6 +23,12 @@
                 </TextBox.InputBindings>
             </TextBox>
         </Grid>
-        <ListView Grid.Column="1" ItemsSource="{Binding ConnectedPeople}" />
+        <ListView Grid.Column="1" ItemsSource="{Binding ConnectedPeople}" SelectedValue="{Binding SelectedUser, Mode=TwoWay}" >
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Challange" Command="{Binding ChallangeCommand}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+        </ListView>
     </Grid>
 </Window>

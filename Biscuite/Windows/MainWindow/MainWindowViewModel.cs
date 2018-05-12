@@ -34,8 +34,10 @@ namespace Biscuite.Windows {
                 OnPropertyChanged(nameof(Chat));
             }
         }
+        public string SelectedUser { get; set; }
 
         public ICommand SendMessageCommand { get; }
+        public ICommand ChallangeCommand { get; }
 
         private string _message;
         public string Message {
@@ -50,7 +52,13 @@ namespace Biscuite.Windows {
 
         public MainWindowViewModel() {
             SendMessageCommand = new DelegateCommand(() => SendMessage());
+            ChallangeCommand = new DelegateCommand(() => Challange());
             ListenMessages();
+        }
+
+        private void Challange() {
+            MessageBox.Show("Challanged " + SelectedUser);
+            //TO-DO send to server challange request
         }
 
         private void SendMessage() {
