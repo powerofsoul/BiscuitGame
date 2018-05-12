@@ -22,7 +22,7 @@ namespace RemoteProtocol.Entities {
         public static void HandleSendMessages(IRequest request, Socket client) {
             var sendMessageRequest = (SendMessageRequest)request;
             foreach (var user in Server.Instance.Users) {
-                Server.Instance.SendMessage(new SendMessageResponse(user.Value.Name, sendMessageRequest.Message), user.Value.ClientStream);
+                Server.Instance.SendMessage(new SendMessageResponse(Server.Instance.Users[client].Name, sendMessageRequest.Message), user.Value.ClientStream);
             }
         }
 
