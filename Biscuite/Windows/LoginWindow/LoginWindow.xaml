@@ -6,7 +6,7 @@
         mc:Ignorable="d"
         Title="Login" Height="200"  Width="400"
         ResizeMode="NoResize">
-    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="200">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>

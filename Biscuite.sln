@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biscuite", "Biscuite\Biscuite.csproj", "{5B23054E-BBFA-4586-AA6C-0B583962C483}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteProtocol", "RemoteProtocol\RemoteProtocol.csproj", "{A6D07056-DEA1-4706-9986-B8E82B164B7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{A6313F6C-4062-4CA4-B90E-BF41BF8156AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5B23054E-BBFA-4586-AA6C-0B583962C483}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B23054E-BBFA-4586-AA6C-0B583962C483}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B23054E-BBFA-4586-AA6C-0B583962C483}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D07056-DEA1-4706-9986-B8E82B164B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D07056-DEA1-4706-9986-B8E82B164B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D07056-DEA1-4706-9986-B8E82B164B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D07056-DEA1-4706-9986-B8E82B164B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6313F6C-4062-4CA4-B90E-BF41BF8156AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6313F6C-4062-4CA4-B90E-BF41BF8156AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6313F6C-4062-4CA4-B90E-BF41BF8156AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6313F6C-4062-4CA4-B90E-BF41BF8156AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

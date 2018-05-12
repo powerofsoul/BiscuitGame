@@ -7,6 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Biscuite.Extra;
+using RemoteProtocol;
+using RemoteProtocol.Entities;
+using RemoteProtocol.Messages;
 
 namespace Biscuite.Windows {
     class LoginWindowViewModel {
@@ -18,6 +21,7 @@ namespace Biscuite.Windows {
         public LoginWindowViewModel(Window window) {
             LoginCommand = new DelegateCommand((o) => Login(o));
             AttachedWindow = window;
+            Client.Instance.WaitForResponse<ConnectResponse>(OnConnect);
         }
 
         private void Login(object passwrodBox) {
@@ -25,9 +29,19 @@ namespace Biscuite.Windows {
             if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(password)) {
                 MessageBox.Show("Please enter valid credentials", "Invalid username or password");
             } else {
-                var mainWindow = new MainWindow();
-                mainWindow.Show();
-                AttachedWindow.Close();
+                Client.Instance.SendMessage(new ConnectRequest(Username, password));
+            }
+        }
+
+        private void OnConnect(ConnectResponse connectResponse) {
+            if (connectResponse.Status == false) {
+                MessageBox.Show("Incorrect credentials");
+            } else {
+                Application.Current.Dispatcher.Invoke(() => {
+                    var mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    AttachedWindow.Close();
+                });
             }
         }
     }

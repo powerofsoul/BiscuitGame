@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Biscuite.Windows;
+using RemoteProtocol;
+using RemoteProtocol.Entities;
 
 namespace Biscuite {
     /// <summary>
