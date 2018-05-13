@@ -25,9 +25,9 @@ namespace Biscuite.Windows {
         }
 
         private void OnConnectResponse(ResponseReceivedEventArgs args) {
-            if (args.Response.GetType() != typeof(ConnectResponse)) return;
+            if (args.Message.GetType() != typeof(ConnectResponse)) return;
 
-            var connectResponse = (ConnectResponse)args.Response;
+            var connectResponse = (ConnectResponse)args.Message;
             if (connectResponse.Status == false) {
                 MessageBox.Show("Incorrect credentials");
             } else {

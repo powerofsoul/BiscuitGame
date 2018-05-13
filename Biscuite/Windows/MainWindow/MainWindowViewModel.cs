@@ -57,8 +57,7 @@ namespace Biscuite.Windows {
         }
 
         private void Challange() {
-            MessageBox.Show("Challanged " + SelectedUser);
-            //TO-DO send to server challange request
+            Client.Instance.SendMessage(new StartGameRequest(SelectedUser));
         }
 
         private void SendMessage() {
@@ -69,18 +68,39 @@ namespace Biscuite.Windows {
         private void ListenMessages() {
             Client.Instance.OnResponseReceived += AddMessage;
             Client.Instance.OnResponseReceived += RefreshUsers;
+            Client.Instance.OnResponseReceived += OnChallangeRequest;
+            Client.Instance.OnResponseReceived += OnTestRequest;
+        }
+
+        private void OnTestRequest(ResponseReceivedEventArgs args) {
+            if (args.Message.GetType() != typeof(TestRequest)) return;
+            var test = (TestRequest)args.Message;
+
+            MessageBox.Show(test.M);
+        }
+
+        private void OnChallangeRequest(ResponseReceivedEventArgs args) {
+            if(args.Message.GetType() != typeof(ChallangeRequest)) return;
+            var request = (ChallangeRequest)args.Message;
+
+            var dialogResult = MessageBox.Show($"{request.FromUser}", " has challanged you !! Do you accept?", MessageBoxButton.YesNo);
+            if (dialogResult == MessageBoxResult.Yes) {
+                Client.Instance.SendMessage(new ChallangeResponse(request.FromUser, true));
+            } else if (dialogResult == MessageBoxResult.No) {
+                Client.Instance.SendMessage(new ChallangeResponse(request.FromUser, false));
+            }
         }
 
         private void RefreshUsers(ResponseReceivedEventArgs args) {
-            if (args.Response.GetType() != typeof(UserListMessage)) return;
-            var response = (UserListMessage)args.Response;
+            if (args.Message.GetType() != typeof(UserListMessage)) return;
+            var response = (UserListMessage)args.Message;
             ConnectedPeople = new ObservableCollection<string>(response.Users);
         }
 
         private void AddMessage(ResponseReceivedEventArgs args) {
-            if (args.Response.GetType() != typeof(SendMessageResponse)) return;
+            if (args.Message.GetType() != typeof(SendMessageResponse)) return;
 
-            var responseMessage = (SendMessageResponse)args.Response;
+            var responseMessage = (SendMessageResponse)args.Message;
             Application.Current.Dispatcher.Invoke(() => {
                 Chat += $"{responseMessage.UserName}:{responseMessage.Message}{Environment.NewLine}";
             });

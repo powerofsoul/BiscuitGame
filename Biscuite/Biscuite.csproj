@@ -58,6 +58,9 @@
     </ApplicationDefinition>
     <Compile Include="Extra\DelegateCommand.cs" />
     <Compile Include="Extra\ViewModelBase.cs" />
+    <Compile Include="Windows\GameWindow\GameWindow.xaml.cs">
+      <DependentUpon>GameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -70,6 +73,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\MainWindow\MainWindowViewModel.cs" />
+    <Page Include="Windows\GameWindow\GameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\LoginWindow\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

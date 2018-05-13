@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RemoteProtocol.Entities {
     public class ResponseReceivedEventArgs {
-        public IResponse Response { get; }
+        public object Message { get; }
 
-        public ResponseReceivedEventArgs(IResponse response) {
-            Response = response;
+        public ResponseReceivedEventArgs(object response) {
+            Message = response;
         }
     }
 }

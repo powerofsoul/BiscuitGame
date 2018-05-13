@@ -18,14 +18,16 @@ namespace RemoteProtocol.Entities {
             }
         }
 
-        public Dictionary<Socket, User> Users { get; set; }
+        public Dictionary<Socket, User> Users { get; }
+        public List<Game> Games { get; }
 
         public Server(string address = "127.0.0.1", int port = 5432) : base(address, port) {
+            Users = new Dictionary<Socket, User>();
+            Games = new List<Game>();
             Initialize();
         }
 
         private void Initialize() {
-            Users = new Dictionary<Socket, User>();
             var thread = new Thread(HandleNewConnections);
             thread.Start();
         }

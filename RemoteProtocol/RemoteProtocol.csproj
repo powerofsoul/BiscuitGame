@@ -49,10 +49,15 @@
     <Compile Include="Entities\Server\ResponseReceivedEventArgs.cs" />
     <Compile Include="Entities\Server\Server.cs" />
     <Compile Include="Entities\Server\User.cs" />
+    <Compile Include="Game\Game.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="Messages\Challange\ChallangeRequest.cs" />
+    <Compile Include="Messages\Challange\ChallangeResponse.cs" />
+    <Compile Include="Messages\Challange\StartGameRequest.cs" />
     <Compile Include="Messages\Connect\ConnectRequest.cs" />
     <Compile Include="Messages\Connect\ConnectResponse.cs" />
+    <Compile Include="Messages\Game\TestRequest.cs" />
     <Compile Include="Messages\SendMessage\SendMessageRequest.cs" />
     <Compile Include="Messages\SendMessage\SendMessageResponse.cs" />
     <Compile Include="Messages\UserList\UserListMessage.cs" />

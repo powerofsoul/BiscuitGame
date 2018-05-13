@@ -40,7 +40,7 @@ namespace RemoteProtocol.Entities {
                 var message = new byte[BUFFER_SIZE];
                 _server.GetStream().Read(message, 0, BUFFER_SIZE);
                 var receivedMessage = DeserializeMessage(message);
-                OnResponseReceived(new ResponseReceivedEventArgs((IResponse)receivedMessage));
+                OnResponseReceived(new ResponseReceivedEventArgs(receivedMessage));
             }
         }
     }
