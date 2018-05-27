@@ -18,55 +18,73 @@ namespace Biscuite.Windows {
     /// Interaction logic for GameWindow.xaml
     /// </summary>
     public partial class GameWindow : Window {
-        public GameWindow(int rows, int columns) {
+        public GameWindow(int rows, int columns, int gameId) {
             InitializeComponent();
-            for(int i = 0; i < rows; i++) {
+            DataContext = new GameWindowViewModel(gameId);
+
+            for (int i = 0; i < rows; i++) {
                 MainGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            for(int j = 0; j < columns; j++) {
+            for (int j = 0; j < columns; j++) {
                 MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            for(int i = 0; i < rows; i++) {
-                for(int j = 0; j < columns; j++)
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++)
                     Spawn(i, j);
+            }
+
+            for (int i = 0; i < rows; i++) {
+                SpawnRight(i, columns - 1);
+            }
+
+            for (int i = 0; i < columns; i++) {
+                SpawnBottom(rows - 1, i);
             }
         }
 
         void Spawn(int row, int column) {
             var leftButton = new Button() {
-                HorizontalAlignment= HorizontalAlignment.Left,
-                Width=5,
-            };
-            var rightButton = new Button() {
-                HorizontalAlignment = HorizontalAlignment.Right,
+                HorizontalAlignment = HorizontalAlignment.Left,
                 Width = 5,
             };
+
             var toptButton = new Button() {
                 VerticalAlignment = VerticalAlignment.Top,
-                Height = 5,
-            };
-            var bottomButton = new Button() {
-                VerticalAlignment = VerticalAlignment.Bottom,
                 Height = 5,
             };
 
             Grid.SetRow(leftButton, row);
             Grid.SetColumn(leftButton, column);
 
-            Grid.SetRow(rightButton, row);
-            Grid.SetColumn(rightButton, column);
-
             Grid.SetRow(toptButton, row);
             Grid.SetColumn(toptButton, column);
+
+            MainGrid.Children.Add(leftButton);
+            MainGrid.Children.Add(toptButton);
+        }
+
+        void SpawnRight(int row, int column) {
+            var rightButton = new Button() {
+                HorizontalAlignment = HorizontalAlignment.Right,
+                Width = 5,
+            };
+
+            Grid.SetRow(rightButton, row);
+            Grid.SetColumn(rightButton, column);
+            MainGrid.Children.Add(rightButton);
+        }
+
+        void SpawnBottom(int row, int column) {
+            var bottomButton = new Button() {
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Height = 5,
+            };
 
             Grid.SetRow(bottomButton, row);
             Grid.SetColumn(bottomButton, column);
 
-            MainGrid.Children.Add(leftButton);
-            MainGrid.Children.Add(rightButton);
-            MainGrid.Children.Add(toptButton);
             MainGrid.Children.Add(bottomButton);
         }
     }

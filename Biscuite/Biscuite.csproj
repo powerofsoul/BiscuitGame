@@ -61,6 +61,7 @@
     <Compile Include="Windows\GameWindow\GameWindow.xaml.cs">
       <DependentUpon>GameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\GameWindow\GameWindowViewModel.cs" />
     <Compile Include="Windows\LoginWindow\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
@@ -75,7 +76,7 @@
     <Compile Include="Windows\MainWindow\MainWindowViewModel.cs" />
     <Page Include="Windows\GameWindow\GameWindow.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Windows\LoginWindow\LoginWindow.xaml">
       <SubType>Designer</SubType>

@@ -69,14 +69,13 @@ namespace Biscuite.Windows {
             Client.Instance.OnResponseReceived += AddMessage;
             Client.Instance.OnResponseReceived += RefreshUsers;
             Client.Instance.OnResponseReceived += OnChallangeRequest;
-            Client.Instance.OnResponseReceived += OnTestRequest;
+            Client.Instance.OnResponseReceived += OnStartGameRequest;
         }
 
-        private void OnTestRequest(ResponseReceivedEventArgs args) {
-            if (args.Message.GetType() != typeof(TestRequest)) return;
-            var test = (TestRequest)args.Message;
-
-            MessageBox.Show(test.M);
+        private void OnStartGameRequest(ResponseReceivedEventArgs args) {
+            if (args.Message.GetType() != typeof(ShowGameWindowRequest)) return;
+            var request = (ShowGameWindowRequest)args.Message;
+            Application.Current.Dispatcher.Invoke(() => new GameWindow(request.Rows, request.Columns, request.GameId).Show());
         }
 
         private void OnChallangeRequest(ResponseReceivedEventArgs args) {

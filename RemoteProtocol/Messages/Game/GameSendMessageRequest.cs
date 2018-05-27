@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using RemoteProtocol.Entities;
 
 namespace RemoteProtocol {
-    public class SendMessageRequest : Request {
+    public class GameSendMessageRequest : Request {
         public string Message { get; }
+        public int GameId { get; }
 
-        public SendMessageRequest(string message) {
+        public GameSendMessageRequest(string message, int gameId) {
             Message = message;
+            GameId = gameId;
         }
     }
 }

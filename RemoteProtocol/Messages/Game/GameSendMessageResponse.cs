@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RemoteProtocol.Entities;
 
 namespace RemoteProtocol {
-    public class SendMessageRequest : Request {
+    public class GameSendMessageResponse : Response{
+        public string UserName { get; }
         public string Message { get; }
 
-        public SendMessageRequest(string message) {
+        public GameSendMessageResponse(string userName, string message) : base(true, 0) {
+            UserName = userName;
             Message = message;
         }
     }

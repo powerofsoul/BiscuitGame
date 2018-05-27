@@ -6,7 +6,26 @@
              xmlns:local="clr-namespace:Biscuite.Windows"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="MainGrid">
-      
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="MainGrid" Grid.Column="0">
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBox AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Grid.Row="0" Text="{Binding Chat}"></TextBox>
+            <TextBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding SendMessageCommand}" Key="Return" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </Grid>
     </Grid>
+   
 </Window>

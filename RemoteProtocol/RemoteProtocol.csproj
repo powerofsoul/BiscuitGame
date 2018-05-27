@@ -57,6 +57,9 @@
     <Compile Include="Messages\Challange\StartGameRequest.cs" />
     <Compile Include="Messages\Connect\ConnectRequest.cs" />
     <Compile Include="Messages\Connect\ConnectResponse.cs" />
+    <Compile Include="Messages\Game\GameSendMessageRequest.cs" />
+    <Compile Include="Messages\Game\GameSendMessageResponse.cs" />
+    <Compile Include="Messages\Game\ShowGameWindowRequest.cs" />
     <Compile Include="Messages\Game\TestRequest.cs" />
     <Compile Include="Messages\SendMessage\SendMessageRequest.cs" />
     <Compile Include="Messages\SendMessage\SendMessageResponse.cs" />
