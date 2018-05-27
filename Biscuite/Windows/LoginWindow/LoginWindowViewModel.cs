@@ -22,6 +22,8 @@ namespace Biscuite.Windows {
             LoginCommand = new DelegateCommand((o) => Login(o));
             AttachedWindow = window;
             Client.Instance.OnResponseReceived += OnConnectResponse;
+
+            new GameWindow(5, 5).ShowDialog();
         }
 
         private void OnConnectResponse(ResponseReceivedEventArgs args) {
