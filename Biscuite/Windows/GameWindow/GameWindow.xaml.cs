@@ -74,7 +74,13 @@ namespace Biscuite.Windows {
         private void OnGameResponseMessage(ResponseReceivedEventArgs args) {
             if (args.Message.GetType() != typeof(GameMoveMessageResponse)) return;
             var response = (GameMoveMessageResponse)args.Message;
-
+            Application.Current.Dispatcher.Invoke(() => {
+                var disabledLines = Lines.Where(dic => dic.Value.Background == System.Windows.Media.Brushes.Black).Select(o => o.Value).ToList();
+                foreach (var line in disabledLines) {
+                    line.Background = new Button().Background;
+                    line.IsHitTestVisible = true;
+                }
+            });
             foreach (var line in response.Lines) {
                 Application.Current.Dispatcher.Invoke(() => {
                     Lines[$"A{line.Item1.X}a{line.Item1.Y}b{line.Item2.X}a{line.Item2.Y}"].Background = System.Windows.Media.Brushes.Red;
@@ -86,6 +92,19 @@ namespace Biscuite.Windows {
                     Stackpanels[square.Id].Background = square.Player == Username ? System.Windows.Media.Brushes.Green : System.Windows.Media.Brushes.Red;
                 });
             }
+            Application.Current.Dispatcher.Invoke(() => {
+                var notSelectedLines = Lines.Where(dic => dic.Value.Background != System.Windows.Media.Brushes.Red).Select(o => o.Value).ToList();
+
+                var amountOfLinesToDisable = notSelectedLines.Count * 10 / 100;
+
+                var random = new Random();
+                while (amountOfLinesToDisable > 0) {
+                    var i = random.Next(0, notSelectedLines.Count);
+                    notSelectedLines[i].Background = System.Windows.Media.Brushes.Black;
+                    notSelectedLines[i].IsHitTestVisible = false;
+                    amountOfLinesToDisable--;
+                }
+            });
         }
 
         void Spawn(int row, int column) {
