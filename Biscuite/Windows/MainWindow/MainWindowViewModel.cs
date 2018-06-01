@@ -49,8 +49,9 @@ namespace Biscuite.Windows {
                 OnPropertyChanged(nameof(Message));
             }
         }
-
-        public MainWindowViewModel() {
+        public string Username { get; }
+        public MainWindowViewModel(string username) {
+            Username = username;
             SendMessageCommand = new DelegateCommand(() => SendMessage());
             ChallangeCommand = new DelegateCommand(() => Challange());
             ListenMessages();
@@ -75,7 +76,7 @@ namespace Biscuite.Windows {
         private void OnStartGameRequest(ResponseReceivedEventArgs args) {
             if (args.Message.GetType() != typeof(ShowGameWindowRequest)) return;
             var request = (ShowGameWindowRequest)args.Message;
-            Application.Current.Dispatcher.Invoke(() => new GameWindow(request.Rows, request.Columns, request.GameId).Show());
+            Application.Current.Dispatcher.Invoke(() => new GameWindow(request.Rows, request.Columns, request.GameId, Username).Show());
         }
 
         private void OnChallangeRequest(ResponseReceivedEventArgs args) {

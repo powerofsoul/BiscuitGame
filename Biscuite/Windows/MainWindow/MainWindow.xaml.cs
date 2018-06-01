@@ -17,9 +17,9 @@ namespace Biscuite.Windows {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window {
-        public MainWindow() {
+        public MainWindow(string username) {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel(username);
         }
     }
 }

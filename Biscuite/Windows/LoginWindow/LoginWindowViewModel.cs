@@ -32,7 +32,7 @@ namespace Biscuite.Windows {
                 MessageBox.Show("Incorrect credentials");
             } else {
                 Application.Current.Dispatcher.Invoke(() => {
-                    var mainWindow = new MainWindow();
+                    var mainWindow = new MainWindow(Username);
                     mainWindow.Show();
                     AttachedWindow.Close();
                 });

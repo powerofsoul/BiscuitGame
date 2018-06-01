@@ -15,9 +15,11 @@ namespace RemoteProtocol.Entities {
             _actions.Add(typeof(SendMessageRequest), HandleSendMessages);
             _actions.Add(typeof(StartGameRequest), HandleStartGameRequest);
             _actions.Add(typeof(ChallangeResponse), HandleChallangeResponse);
-
             _actions.Add(typeof(GameSendMessageRequest), HandleGameSendMessages);
+            _actions.Add(typeof(GameMoveMessageRequest), HandleGameMoveMessageRequest);
         }
+
+        
 
         public static void HandleConnect(IRequest request, Socket client) {
             var connectRequest = (ConnectRequest)request;
@@ -33,6 +35,12 @@ namespace RemoteProtocol.Entities {
             foreach (var user in Server.Instance.Users) {
                 Server.Instance.SendMessage(new SendMessageResponse(Server.Instance.Users[client].Name, sendMessageRequest.Message), user.Value.ClientStream);
             }
+        }
+
+        private static void HandleGameMoveMessageRequest(IRequest arg1, Socket arg2) {
+            var request = (GameMoveMessageRequest)arg1;
+
+            Game.Games[request.GameId].HandleMovement(request, arg2);
         }
 
         public static void HandleGameSendMessages(IRequest request, Socket client) {
