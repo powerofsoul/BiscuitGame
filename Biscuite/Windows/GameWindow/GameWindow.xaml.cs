@@ -27,7 +27,7 @@ namespace Biscuite.Windows {
         public string Username { get; }
         public GameWindow(int rows, int columns, int gameId, string username) {
             InitializeComponent();
-            GameId = GameId;
+            GameId = gameId;
             DataContext = new GameWindowViewModel(gameId);
             Username = username;
             Lines = new Dictionary<string, Button>();

@@ -42,13 +42,11 @@ namespace RemoteProtocol {
             Squares = new List<Square>();
             Lines = new List<Tuple<Point, Point>>();
             CurrentUser = Player1;
-            StartGame(5, 5);
+            StartGame(15, 15);
 
             var message = $"{Player1.Name}  VS  {Player2.Name} Start. Current player is {CurrentUser.Name}";
             Server.Instance.SendMessage(new GameSendMessageResponse("SERVER:", message), Player1.ClientStream);
             Server.Instance.SendMessage(new GameSendMessageResponse("SERVER:", message), Player2.ClientStream);
-
-
         }
 
         private void StartGame(int rows, int columns) {
